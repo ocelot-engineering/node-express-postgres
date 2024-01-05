@@ -1,0 +1,1 @@
+./node_modules/.bin/babel-node ./src/db/init-db.js
