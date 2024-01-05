@@ -15,15 +15,14 @@ export const pool = new Pool({
 });
 
 /**
- * Executes a SQL query using the provided text and parameters.
+ * Executes a SQL query with the provided text and parameters.
  * @param {string} text - The SQL query text.
  * @param {Array} params - The parameters to be used in the query.
- * @param {Function} callback - The callback function to be executed after the query is completed.
  * @returns {Promise} - A promise that resolves to the query result.
  */
-export const query = async (text, params, callback) => {
+export const query = async (text, params) => {
     const start = Date.now();
-    const res = await pool.query(text, params, callback);
+    const res = await pool.query(text, params);
     const duration = Date.now() - start;
     console.log('executed query', { text, duration, rows: res.rowCount });
     return res;

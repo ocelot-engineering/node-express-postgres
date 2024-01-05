@@ -12,6 +12,10 @@ const mountRoutes = (app) => {
     app.use(newUserRouter);
     app.use(updateUserRouter);
     app.use(deleteUserRouter);
+
+    app.all('*', async (req, res) => {
+        res.status(400).send('Route not known');
+    });
 };
 
 export default mountRoutes;
