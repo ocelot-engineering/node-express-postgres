@@ -9,13 +9,13 @@ router.post('/api/user', async (req, res) => {
         email: req.body.email,
     };
 
-    pool.query(`INSERT INTO users (name, email) VALUES ($1, $2)`, [newUser.name, newUser.email], (error) => {
-        if (error) {
-            res.status(500).send({ error: error });
-            throw error;
-        }
+    try {
+        await pool.query(`INSERT INTO users (name, email) VALUES ($1, $2)`, [newUser.name, newUser.email]);
         res.status(201).json(newUser);
-    });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ error: err });
+    }
 });
 
 export { router as newUserRouter };

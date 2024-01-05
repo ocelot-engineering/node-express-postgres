@@ -4,13 +4,13 @@ import { pool } from '../../db/index';
 const router = express.Router();
 
 router.get('/api/user', async (req, res) => {
-    pool.query('SELECT * FROM USERS ORDER BY id ASC', (error, results) => {
-        if (error) {
-            res.status(500).send({ error: error });
-            throw error;
-        }
-        res.status(200).json(results.rows);
-    });
+    try {
+        const result = await pool.query('SELECT * FROM USERS ORDER BY id ASC');
+        res.status(200).json(result.rows);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ error: err });
+    }
 });
 
 export { router as indexUserRouter };
